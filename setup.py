@@ -45,7 +45,7 @@ class build_ext(_build_ext):
         self.distribution.ext_modules = cythonize(
             [*cythonize_files],
             nthreads=thread_count,
-            annotate=True,
+            annotate=False,
             gdb_debug=False,
             language_level=3,
             compiler_directives={
@@ -72,6 +72,11 @@ def prep_pxd_py_files():
             if os.path.splitext(f)[1].startswith(".py") and f not in ignore_py_files and not os.path.exists(os.path.join(root, f + "x")):
                 yield os.path.join(root, f)
             if os.path.splitext(f)[1] == ".pxd":
+                fpath = os.path.join(root, os.path.splitext(f)[0])
+                if os.path.exists(fpath + ".pyx"):
+                    fpath += ".pyx"
+                else:
+                    fpath += ".py"
                 py_file = os.path.join(root, os.path.splitext(f)[0]) + ".py"
                 if os.path.isfile(py_file):
                     if os.path.getmtime(os.path.join(root, f)) > os.path.getmtime(py_file):
