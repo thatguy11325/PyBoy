@@ -7,7 +7,6 @@ import array
 from pyboy import logging
 import os
 
-from pyboy.logger import logger
 from pyboy.utils import IntIOWrapper
 
 from .rtc import RTC
@@ -41,7 +40,7 @@ class BaseMBC:
         self.cgb = bool(self.getitem(0x0143) >> 7)
 
         if not os.path.exists(self.filename):
-            logger.debug("No RAM file found. Skipping.")
+            logger.debug(b"No RAM file found. Skipping.")
         else:
             with open(self.filename, "rb") as f:
                 self.load_ram(IntIOWrapper(f))
@@ -73,25 +72,25 @@ class BaseMBC:
 
     def save_ram(self, f):
         if not self.rambank_initialized:
-            logger.warning("Saving RAM is not supported on {}".format(self.carttype))
+            logger.warning(b"Saving RAM is not supported on %d", self.carttype)
             return
 
         for bank in range(self.external_ram_count):
             for byte in range(8 * 1024):
                 f.write(self.rambanks[bank][byte])
 
-        logger.debug("RAM saved.")
+        logger.debug(b"RAM saved.")
 
     def load_ram(self, f):
         if not self.rambank_initialized:
-            logger.warning("Loading RAM is not supported on {}".format(self.carttype))
+            logger.warning(b"Loading RAM is not supported on %d", self.carttype)
             return
 
         for bank in range(self.external_ram_count):
             for byte in range(8 * 1024):
                 self.rambanks[bank][byte] = f.read()
 
-        logger.debug("RAM loaded.")
+        logger.debug(b"RAM loaded.")
 
     def init_rambanks(self, n):
         if n is None:
@@ -112,12 +111,12 @@ class BaseMBC:
     def overrideitem(self, rom_bank, address, value):
         if 0x0000 <= address < 0x4000:
             logger.debug(
-                "Performing overwrite on address: %s:%s. New value: %s Old value: %s" %
-                (hex(rom_bank), hex(address), hex(value), self.rombanks[rom_bank][address])
+                b"Performing overwrite on address: 0x%x:0x%x. New value: %d Old value: %d",
+                rom_bank, address, value, self.rombanks[rom_bank][address]
             )
             self.rombanks[rom_bank][address] = value
         else:
-            logger.error("Invalid override address: %s" % hex(address))
+            logger.error(b"Invalid override address: 0x%x", address)
 
     def getitem(self, address):
         if 0x0000 <= address < 0x4000:
@@ -126,7 +125,7 @@ class BaseMBC:
             return self.rombanks[self.rombank_selected][address - 0x4000]
         elif 0xA000 <= address < 0xC000:
             if not self.rambank_initialized:
-                logger.error("RAM banks not initialized: %s" % hex(address))
+                logger.error(b"RAM banks not initialized: 0x%x", address)
 
             if not self.rambank_enabled:
                 return 0xFF
@@ -136,7 +135,7 @@ class BaseMBC:
             else:
                 return self.rambanks[self.rambank_selected][address - 0xA000]
         else:
-            logger.error("Reading address invalid: %s" % address)
+            logger.error(b"Reading address invalid: 0x%x", address)
 
     def __repr__(self):
         return "\n".join([
@@ -161,16 +160,18 @@ class ROMOnly(BaseMBC):
             if value == 0:
                 value = 1
             self.rombank_selected = (value & 0b1)
-            logger.debug("Switching bank 0x%0.4x, 0x%0.2x" % (address, value))
+            logger.debug(b"Switching bank 0x%0.4x, 0x%0.2x", address, value)
         elif 0xA000 <= address < 0xC000:
             if self.rambanks is None:
-                from . import EXTERNAL_RAM_TABLE
+                from pyboy.core.cartridge import EXTERNAL_RAM_TABLE
+                n_ram_banks = EXTERNAL_RAM_TABLE[0x02]
                 logger.warning(
-                    "Game tries to set value 0x%0.2x at RAM address 0x%0.4x, but "
-                    "RAM banks are not initialized. Initializing %d RAM banks as "
-                    "precaution" % (value, address, EXTERNAL_RAM_TABLE[0x02])
+                    b"Game tries to set value 0x%0.2x at RAM address 0x%0.4x, but RAM banks are not initialized. Initializing %d RAM banks as precaution", 
+                    value, 
+                    address, 
+                    n_ram_banks,
                 )
-                self.init_rambanks(EXTERNAL_RAM_TABLE[0x02])
+                self.init_rambanks(n_ram_banks)
             self.rambanks[self.rambank_selected][address - 0xA000] = value
         else:
-            logger.debug("Unexpected write to 0x%0.4x, value: 0x%0.2x" % (address, value))
+            logger.debug(b"Unexpected write to 0x%0.4x, value: 0x%0.2x", address, value)

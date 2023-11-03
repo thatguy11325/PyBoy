@@ -5,7 +5,13 @@
 
 from pyboy.utils cimport IntIOInterface
 from pyboy.core.cartridge.rtc cimport RTC
+from pyboy.core.cartridge cimport cartridge
+from pyboy.logging cimport Logger, getLogger
 from libc.stdint cimport uint8_t, uint16_t, uint32_t
+
+cimport cython
+
+cdef Logger logger
 
 cdef class BaseMBC:
     cdef str filename
@@ -38,4 +44,5 @@ cdef class BaseMBC:
     cdef void overrideitem(self, int, uint16_t, uint8_t) noexcept
 
 cdef class ROMOnly(BaseMBC):
+    @cython.locals(n_ram_banks=int)
     cdef void setitem(self, uint16_t, uint8_t) noexcept

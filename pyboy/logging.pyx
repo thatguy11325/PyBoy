@@ -83,17 +83,17 @@ cdef class Logger:
       cdef va_list args
       va_start(args, <void*>_pct_count(msg))
       vfprintf(stdout, <const char*>&msg[0], args)
-      fprintf(stderr, "\n")
+      fprintf(stdout, "\n")
       va_end(args)
 
-  cdef public void debug(self, const unsigned char[:] msg, ...) noexcept:
+  cdef public void debug(self, const unsigned char[:] msg, ...) noexcept nogil:
       if self.level < DEBUG:
           return
       fprintf(stdout, "DEBUG: ")
       cdef va_list args
       va_start(args, <void*>_pct_count(msg))
       vfprintf(stdout, <const char*>&msg[0], args)
-      fprintf(stderr, "\n")
+      fprintf(stdout, "\n")
       va_end(args)
 
 
