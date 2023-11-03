@@ -4,7 +4,7 @@
 #
 
 from .base_mbc cimport BaseMBC
-from pyboy.logging cimport *
+from pyboy.logging cimport Logger, getLogger
 
 from cpython.array cimport array
 # from array import array
