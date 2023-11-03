@@ -34,10 +34,9 @@ def load_cartridge(filename):
     if cartinfo is None:
         raise Exception("Catridge type invalid: %s" % carttype)
 
-    cartdata = (
-        carttype, cartinfo[0].__name__, ", ".join([x for x, y in zip(["SRAM", "Battery", "RTC"], cartinfo[1:]) if y])
-    )
-    logger.debug(b"Cartridge type: 0x%0.2x - %s, %s", cartdata[0], cartdata[1].encode(), cartdata[2].encode())
+    cartname = cartinfo[0].__name__.encode()
+    cartdata = ", ".join([x for x, y in zip(["SRAM", "Battery", "RTC"], cartinfo[1:]) if y]).encode()
+    logger.debug(b"Cartridge type: 0x%0.2x - %s, %s", carttype, cartname, cartdata)
     logger.debug(b"Cartridge size: %d ROM banks of 16KB, %s RAM banks of 8KB" , len(rombanks), external_ram_count)
     cartmeta = CARTRIDGE_TABLE[carttype]
 
