@@ -12,6 +12,7 @@ from cpython.array cimport array
 import cython
 from libc.stdint cimport uint8_t, uint16_t, uint32_t
 
+cdef Logger logger
 
 cpdef BaseMBC load_cartridge(str) noexcept
 cdef bint validate_checksum(uint8_t[:,:]) noexcept

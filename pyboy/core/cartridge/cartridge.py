@@ -37,8 +37,8 @@ def load_cartridge(filename):
     cartdata = (
         carttype, cartinfo[0].__name__, ", ".join([x for x, y in zip(["SRAM", "Battery", "RTC"], cartinfo[1:]) if y])
     )
-    logger.debug("Cartridge type: 0x%0.2x - %s, %s" % cartdata)
-    logger.debug("Cartridge size: %d ROM banks of 16KB, %s RAM banks of 8KB" % (len(rombanks), external_ram_count))
+    logger.debug(b"Cartridge type: 0x%0.2x - %s, %s", cartdata[0], cartdata[1].encode(), cartdata[2].encode())
+    logger.debug(b"Cartridge size: %d ROM banks of 16KB, %s RAM banks of 8KB" , len(rombanks), external_ram_count)
     cartmeta = CARTRIDGE_TABLE[carttype]
 
     return cartmeta[0](filename, rombanks, external_ram_count, carttype, *cartmeta[1:])
@@ -58,12 +58,12 @@ def load_romfile(filename):
 
     logger.debug(b"Loading ROM file: %d bytes", len(romdata))
     if len(romdata) == 0:
-        logger.error("ROM file is empty!")
+        logger.error(b"ROM file is empty!")
         raise Exception("Empty ROM file")
 
     banksize = 16 * 1024
     if len(romdata) % banksize != 0:
-        logger.error("Unexpected ROM file length")
+        logger.error(b"Unexpected ROM file length")
         raise Exception("Bad ROM file size")
 
     if cythonmode:

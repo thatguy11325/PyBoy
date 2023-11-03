@@ -86,7 +86,7 @@ cdef class Logger:
       fprintf(stderr, "\n")
       va_end(args)
 
-  cdef public void debug(self, const unsigned char[:] msg, ...) noexcept nogil:
+  cdef public void debug(self, const unsigned char[:] msg, ...) noexcept:
       if self.level < DEBUG:
           return
       fprintf(stdout, "DEBUG: ")
