@@ -12,7 +12,7 @@ __pdoc__ = {
 }
 
 import io
-import logging
+from pyboy import logging
 import random
 from array import array
 

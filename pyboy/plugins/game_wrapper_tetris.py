@@ -7,7 +7,7 @@ __pdoc__ = {
     "GameWrapperTetris.post_tick": False,
 }
 
-import logging
+from pyboy import logging
 from array import array
 
 import numpy as np

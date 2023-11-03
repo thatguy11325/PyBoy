@@ -7,7 +7,7 @@
 # http://gbdev.gg8.se/wiki/articles/Gameboy_sound_hardware
 # http://www.devrs.com/gb/files/hosted/GBSOUND.txt
 
-import logging
+from pyboy import logging
 from array import array
 from ctypes import c_void_p
 

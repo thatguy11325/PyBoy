@@ -7,7 +7,7 @@ __pdoc__ = {
     "GameWrapperPokemonGen1.post_tick": False,
 }
 
-import logging
+from pyboy import logging
 
 import numpy as np
 

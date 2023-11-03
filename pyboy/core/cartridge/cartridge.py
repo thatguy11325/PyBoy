@@ -3,7 +3,7 @@
 # GitHub: https://github.com/Baekalfen/PyBoy
 #
 
-import logging
+from pyboy import logging
 from array import array
 
 from .base_mbc import ROMOnly
@@ -56,7 +56,7 @@ def load_romfile(filename):
     with open(filename, "rb") as romfile:
         romdata = array("B", romfile.read())
 
-    logger.debug(f"Loading ROM file: {len(romdata)} bytes")
+    logger.debug(b"Loading ROM file: %d bytes", len(romdata))
     if len(romdata) == 0:
         logger.error("ROM file is empty!")
         raise Exception("Empty ROM file")

@@ -3,7 +3,7 @@
 # GitHub: https://github.com/Baekalfen/PyBoy
 #
 
-import logging
+from pyboy import logging
 from array import array
 from copy import deepcopy
 from ctypes import c_void_p

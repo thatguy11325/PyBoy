@@ -3,7 +3,7 @@
 # GitHub: https://github.com/Baekalfen/PyBoy
 #
 
-import logging
+from pyboy import logging
 
 from pyboy.core.opcodes import CPU_COMMANDS
 from pyboy.utils import STATE_VERSION

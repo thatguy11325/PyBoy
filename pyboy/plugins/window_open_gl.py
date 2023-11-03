@@ -3,7 +3,7 @@
 # GitHub: https://github.com/Baekalfen/PyBoy
 #
 
-import logging
+from pyboy import logging
 
 import numpy as np
 

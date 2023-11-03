@@ -4,7 +4,7 @@
 #
 
 import array
-import logging
+from pyboy import logging
 import os
 
 from pyboy.logger import logger

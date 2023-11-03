@@ -7,7 +7,7 @@ The Game Boy uses tiles as the building block for all graphics on the screen. Th
 `pyboy.botsupport.sprite.Sprite` and `pyboy.botsupport.tilemap.TileMap`, when refering to graphics.
 """
 
-import logging
+from pyboy import logging
 
 import numpy as np
 from pyboy import utils

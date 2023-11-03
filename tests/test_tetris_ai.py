@@ -16,7 +16,7 @@ import io
 import pickle
 import numpy as np
 import torch
-import logging
+from pyboy import logging
 import sys
 
 from datetime import datetime

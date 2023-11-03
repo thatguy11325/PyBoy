@@ -3,7 +3,7 @@
 # GitHub: https://github.com/Baekalfen/PyBoy
 #
 
-import logging
+from pyboy import logging
 import time
 
 from pyboy.plugins.base_plugin import PyBoyWindowPlugin

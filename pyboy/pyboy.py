@@ -6,7 +6,7 @@
 The core module of the emulator
 """
 
-import logging
+from pyboy import logging
 import os
 import time
 

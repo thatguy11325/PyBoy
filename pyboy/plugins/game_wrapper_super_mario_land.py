@@ -7,7 +7,7 @@ __pdoc__ = {
     "GameWrapperSuperMarioLand.post_tick": False,
 }
 
-import logging
+from pyboy import logging
 
 import numpy as np
 from pyboy.utils import WindowEvent

@@ -2,7 +2,7 @@
 # License: See LICENSE.md file
 # GitHub: https://github.com/Baekalfen/PyBoy
 
-import logging
+from pyboy import logging
 import os
 import struct
 import time

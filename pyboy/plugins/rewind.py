@@ -4,7 +4,7 @@
 #
 
 import array
-import logging
+from pyboy import logging
 
 from pyboy.plugins.base_plugin import PyBoyPlugin
 from pyboy.utils import IntIOInterface, WindowEvent

@@ -17,7 +17,7 @@ warning = """
 """
 
 imports = """
-import logging
+from pyboy import logging
 import array
 
 logger = logging.getLogger(__name__)

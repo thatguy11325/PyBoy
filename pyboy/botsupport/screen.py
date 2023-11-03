@@ -6,7 +6,7 @@
 This class gives access to the frame buffer and other screen parameters of PyBoy.
 """
 
-import logging
+from pyboy import logging
 
 import numpy as np
 

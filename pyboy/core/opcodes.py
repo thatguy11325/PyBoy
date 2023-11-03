@@ -3,7 +3,7 @@
 # DO NOT MODIFY THIS FILE.
 # CHANGES TO THE CODE SHOULD BE MADE IN 'opcodes_gen.py'.
 
-import logging
+from pyboy import logging
 import array
 
 logger = logging.getLogger(__name__)
