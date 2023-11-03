@@ -22,8 +22,8 @@ cdef extern from "stdio.h":
 
 cdef inline int _pct_count(const unsigned char[:] msg) noexcept nogil:
     i = 0
-    for c in msg:
-        if c == 37: # % in ascii
+    for c in range(len(msg)):
+        if msg[c] == 37: # % in ascii
             i += 1
 
     return i
@@ -37,12 +37,11 @@ cdef int WARNING = logging.WARNING
 cdef int INFO = logging.INFO
 cdef int DEBUG = logging.DEBUG
 
-@cython.final
 cdef class Logger:
   
   def __init__(self, str name):
       self.name = name
-      self.level = logging.ERROR
+      self.level = ERROR
 
   cdef public void setLevel(self, int level) noexcept nogil:
       self.level = level

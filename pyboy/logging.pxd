@@ -3,7 +3,6 @@ cimport cython
 cdef dict LOGGERS
 cdef int CRITICAL, FATAL, ERROR, WARNING, INFO, DEBUG
 
-@cython.final
 cdef class Logger:
   cdef str name
   cdef int level
