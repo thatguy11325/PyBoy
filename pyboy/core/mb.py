@@ -29,12 +29,12 @@ class Motherboard:
         randomize=False,
     ):
         if bootrom_file is not None:
-            logger.info("Boot-ROM file provided")
+            logger.info(b"Boot-ROM file provided")
 
         self.cartridge = cartridge.load_cartridge(gamerom_file)
         if cgb is None:
             cgb = self.cartridge.cgb
-            logger.debug(f'Cartridge type auto-detected to {"CGB" if cgb else "DMG"}')
+            logger.debug(f'Cartridge type auto-detected to {"CGB" if cgb else "DMG"}'.encode())
 
         self.timer = timer.Timer()
         self.interaction = interaction.Interaction()
@@ -112,7 +112,7 @@ class Motherboard:
             self.cartridge.stop()
 
     def save_state(self, f):
-        logger.debug("Saving state...")
+        logger.debug(b"Saving state...")
         f.write(STATE_VERSION)
         f.write(self.bootrom_enabled)
         f.write(self.key1)
@@ -129,17 +129,17 @@ class Motherboard:
         self.cartridge.save_state(f)
         self.interaction.save_state(f)
         f.flush()
-        logger.debug("State saved.")
+        logger.debug(b"State saved.")
 
     def load_state(self, f):
-        logger.debug("Loading state...")
+        logger.debug(b"Loading state...")
         state_version = f.read()
         if state_version >= 2:
-            logger.debug(f"State version: {state_version}")
+            logger.debug(f"State version: {state_version}".encode())
             # From version 2 and above, this is the version number
             self.bootrom_enabled = f.read()
         else:
-            logger.debug(f"State version: 0-1")
+            logger.debug(b"State version: 0-1")
             # HACK: The byte wasn't a state version, but the bootrom flag
             self.bootrom_enabled = state_version
         if state_version >= 8:
@@ -147,7 +147,7 @@ class Motherboard:
             self.double_speed = f.read()
             _cgb = f.read()
             if self.cgb != _cgb:
-                logger.critical(f"Loading state which is not CGB, but PyBoy is loaded in CGB mode!")
+                logger.critical(b"Loading state which is not CGB, but PyBoy is loaded in CGB mode!")
                 return
             self.cgb = _cgb
             if self.cgb:
@@ -167,7 +167,7 @@ class Motherboard:
         self.cartridge.load_state(f, state_version)
         self.interaction.load_state(f, state_version)
         f.flush()
-        logger.debug("State loaded.")
+        logger.debug(b"State loaded.")
 
     ###################################################################
     # Coordinator
