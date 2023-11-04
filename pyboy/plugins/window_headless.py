@@ -18,7 +18,7 @@ class WindowHeadless(PyBoyWindowPlugin):
             return
 
         logger.warning(
-            'This window type does not support frame-limiting. `pyboy.set_emulation_speed(...)` will have no effect, as it\'s always running at full speed.'
+            b'This window type does not support frame-limiting. `pyboy.set_emulation_speed(...)` will have no effect, as it\'s always running at full speed.'
         )
 
     def enabled(self):

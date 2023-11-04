@@ -8,10 +8,12 @@ from libc cimport time
 cimport cython
 from libc.stdint cimport uint64_t
 from pyboy.core.mb cimport Motherboard
+from pyboy.logging cimport Logger, getLogger
 from pyboy.utils cimport IntIOWrapper, IntIOInterface
 from pyboy.plugins.manager cimport PluginManager
 from libc.stdint cimport int64_t
 
+cdef Logger logger
 
 cdef double SPF
 

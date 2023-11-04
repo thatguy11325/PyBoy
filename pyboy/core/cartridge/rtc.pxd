@@ -4,7 +4,10 @@
 #
 
 from libc.stdint cimport uint8_t, uint16_t, uint64_t
+from pyboy.logging cimport Logger, getLogger
 from pyboy.utils cimport IntIOInterface
+
+cdef Logger logger
 
 cdef class RTC:
     cdef str filename

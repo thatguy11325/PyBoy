@@ -7,7 +7,6 @@ from pyboy import logging
 
 import numpy as np
 
-from pyboy.logger import logger
 from pyboy.plugins.base_plugin import PyBoyWindowPlugin
 from pyboy.utils import WindowEvent
 
@@ -49,7 +48,7 @@ class WindowOpenGL(PyBoyWindowPlugin):
         glPixelZoom(self.scale, self.scale)
         glutReshapeFunc(self._glreshape)
         glutDisplayFunc(self._gldraw)
-        logger.warning("OpenGL implementation is incomplete. To limit the frame-rate, set your monitor to 60hz.")
+        logger.warning(b"OpenGL implementation is incomplete. To limit the frame-rate, set your monitor to 60hz.")
 
     # Cython does not cooperate with lambdas
     def _key(self, c, x, y):
@@ -144,9 +143,9 @@ class WindowOpenGL(PyBoyWindowPlugin):
                 if bool(OpenGL.GLUT.freeglut.glutMainLoopEvent):
                     return True
                 else:
-                    logger.error("Failed to load \"PyOpenGL\". OpenGL window disabled")
+                    logger.error(b"Failed to load \"PyOpenGL\". OpenGL window disabled")
             else:
-                logger.error("Missing depencency \"PyOpenGL\". OpenGL window disabled")
+                logger.error(b"Missing depencency \"PyOpenGL\". OpenGL window disabled")
         return False
 
     def post_tick(self):

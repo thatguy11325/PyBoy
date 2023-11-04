@@ -4,7 +4,10 @@
 #
 
 from libc.stdint cimport uint8_t, uint16_t
+from pyboy.logging cimport Logger, getLogger
 from .base_mbc cimport BaseMBC
+
+cdef Logger logger
 
 
 cdef class MBC5(BaseMBC):

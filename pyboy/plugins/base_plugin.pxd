@@ -9,7 +9,10 @@ cimport cython
 from pyboy.botsupport.tilemap cimport TileMap
 from pyboy.core.mb cimport Motherboard
 from pyboy.core.lcd cimport Renderer
+from pyboy.logging cimport Logger, getLogger
 from pyboy.utils cimport WindowEvent
+
+cdef Logger logger
 
 cdef int ROWS, COLS
 

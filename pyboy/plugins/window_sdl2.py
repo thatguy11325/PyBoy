@@ -196,7 +196,7 @@ class WindowSDL2(PyBoyWindowPlugin):
     def enabled(self):
         if self.pyboy_argv.get("window_type") in ("SDL2", None):
             if not sdl2:
-                logger.error("Failed to import sdl2, needed for sdl2 window")
+                logger.error(b"Failed to import sdl2, needed for sdl2 window")
                 return False # Disable, or raise exception?
             else:
                 return True

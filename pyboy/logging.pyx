@@ -47,7 +47,7 @@ cdef class Logger:
       self.level = level
   
   cdef public void critical(self, const unsigned char[:] msg, ...) noexcept nogil:
-      if self.level < CRITICAL:
+      if self.level >= CRITICAL:
           return
       fprintf(stderr, "CRITICAL: ")
       cdef va_list args
@@ -57,7 +57,7 @@ cdef class Logger:
       va_end(args)
 
   cdef public void error(self, const unsigned char[:] msg, ...) noexcept nogil:
-      if self.level < ERROR:
+      if self.level >= ERROR:
           return
       fprintf(stderr, "ERROR: ")
       cdef va_list args
@@ -67,7 +67,7 @@ cdef class Logger:
       va_end(args)
 
   cdef public void warning(self, const unsigned char[:] msg, ...) noexcept nogil:
-      if self.level < WARNING:
+      if self.level >= WARNING:
           return
       fprintf(stderr, "WARNING: ")
       cdef va_list args
@@ -77,7 +77,7 @@ cdef class Logger:
       va_end(args)
 
   cdef public void info(self, const unsigned char[:] msg, ...) noexcept nogil:
-      if self.level < INFO:
+      if self.level >= INFO:
           return
       fprintf(stdout, "INFO: ")
       cdef va_list args
@@ -87,7 +87,7 @@ cdef class Logger:
       va_end(args)
 
   cdef public void debug(self, const unsigned char[:] msg, ...) noexcept nogil:
-      if self.level < DEBUG:
+      if self.level >= DEBUG:
           return
       fprintf(stdout, "DEBUG: ")
       cdef va_list args
@@ -101,3 +101,6 @@ cpdef Logger getLogger(str name):
     if name not in LOGGERS:
         LOGGERS[name] = Logger(name)
     return LOGGERS[name]
+
+cdef logger = logging.getLogger("pyboy")
+logger.setLevel(INFO)

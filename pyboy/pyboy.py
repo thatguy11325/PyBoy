@@ -161,14 +161,14 @@ class PyBoy:
             elif event == WindowEvent.RELEASE_SPEED_UP:
                 # Switch between unlimited and 1x real-time emulation speed
                 self.target_emulationspeed = int(bool(self.target_emulationspeed) ^ True)
-                logger.debug("Speed limit: %s" % self.target_emulationspeed)
+                logger.debug(b"Speed limit: %d", self.target_emulationspeed)
             elif event == WindowEvent.STATE_SAVE:
                 with open(self.gamerom_file + ".state", "wb") as f:
                     self.mb.save_state(IntIOWrapper(f))
             elif event == WindowEvent.STATE_LOAD:
                 state_path = self.gamerom_file + ".state"
                 if not os.path.isfile(state_path):
-                    logger.error(f"State file not found: {state_path}")
+                    logger.error(f"State file not found: {state_path}".encode())
                     continue
                 with open(state_path, "rb") as f:
                     self.mb.load_state(IntIOWrapper(f))
@@ -194,7 +194,7 @@ class PyBoy:
         self.paused = True
         self.save_target_emulationspeed = self.target_emulationspeed
         self.target_emulationspeed = 1
-        logger.info("Emulation paused!")
+        logger.info(b"Emulation paused!")
         self._update_window_title()
 
     def _unpause(self):
@@ -202,7 +202,7 @@ class PyBoy:
             return
         self.paused = False
         self.target_emulationspeed = self.save_target_emulationspeed
-        logger.info("Emulation unpaused!")
+        logger.info(b"Emulation unpaused!")
         self._update_window_title()
 
     def _post_tick(self):
@@ -242,9 +242,9 @@ class PyBoy:
                 provided game-ROM.
         """
         if self.initialized and not self.stopped:
-            logger.info("###########################")
-            logger.info("# Emulator is turning off #")
-            logger.info("###########################")
+            logger.info(b"###########################")
+            logger.info(b"# Emulator is turning off #")
+            logger.info(b"###########################")
             self.plugin_manager.stop()
             self.mb.stop(save)
             self.stopped = True
@@ -291,7 +291,7 @@ class PyBoy:
         if gym_enabled:
             return PyBoyGymEnv(self, observation_type, action_type, simultaneous_actions, **kwargs)
         else:
-            logger.error(f"{__name__}: Missing dependency \"gym\". ")
+            logger.error(f"{__name__}: Missing dependency \"gym\". ".encode())
             return None
 
     def game_wrapper(self):
@@ -486,7 +486,7 @@ class PyBoy:
             target_speed (int): Target emulation speed as multiplier of real-time.
         """
         if target_speed > 5:
-            logger.warning("The emulation speed might not be accurate when speed-target is higher than 5")
+            logger.warning(b"The emulation speed might not be accurate when speed-target is higher than 5")
         self.target_emulationspeed = target_speed
 
     def cartridge_title(self):

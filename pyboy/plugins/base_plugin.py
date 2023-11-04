@@ -69,10 +69,10 @@ class PyBoyWindowPlugin(PyBoyPlugin):
 
         scale = pyboy_argv.get("scale")
         self.scale = scale
-        logger.debug("%s initialization" % self.__class__.__name__)
+        logger.debug(f"{self.__class__.__name__} initialization".encode())
 
-        self._scaledresolution = (scale * COLS, scale * ROWS)
-        logger.debug("Scale: x%s %s" % (self.scale, self._scaledresolution))
+        self._scaledresolution = (self.scale * COLS, self.scale * ROWS)
+        logger.debug(b"Scale: x%d (%d, %d)", self.scale, self.scale * COLS, self.scale * ROWS)
 
         self.enable_title = True
         if not cythonmode:
@@ -147,7 +147,7 @@ class PyBoyGameWrapper(PyBoyPlugin):
         """
 
         if not self.pyboy.frame_count == 0:
-            logger.warning("Calling start_game from an already running game. This might not work.")
+            logger.warning(b"Calling start_game from an already running game. This might not work.")
 
     def reset_game(self, timer_div=None):
         """
@@ -162,7 +162,7 @@ class PyBoyGameWrapper(PyBoyPlugin):
             self.pyboy.load_state(self.saved_state)
             self.post_tick()
         else:
-            logger.error("Tried to reset game, but it hasn't been started yet!")
+            logger.error(b"Tried to reset game, but it hasn't been started yet!")
 
     def game_over(self):
         """

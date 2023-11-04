@@ -3,6 +3,7 @@
 # GitHub: https://github.com/Baekalfen/PyBoy
 #
 
+from pyboy.logging cimport Logger, getLogger
 from pyboy.plugins.base_plugin cimport PyBoyWindowPlugin
 cimport pyboy.utils
 
@@ -10,6 +11,7 @@ import cython
 cimport cython
 from libc.stdint cimport int64_t, uint8_t, uint16_t, int16_t, uint32_t
 
+cdef Logger logger
 
 cdef int ROWS, COLS
 

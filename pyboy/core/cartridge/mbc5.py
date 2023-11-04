@@ -26,12 +26,12 @@ class MBC5(BaseMBC):
         elif 0xA000 <= address < 0xC000:
             if self.rambanks is None:
                 logger.warning(
-                    "Game tries to set value 0x%0.2x at RAM address 0x%0.4x, but RAM "
-                    "banks are not initialized. Initializing %d RAM banks as "
-                    "precaution" % (value, address, self.external_ram_count)
+                    b"Game tries to set value 0x%0.2x at RAM address 0x%0.4x, but RAM "
+                    b"banks are not initialized. Initializing %d RAM banks as "
+                    b"precaution", value, address, self.external_ram_count
                 )
                 self.init_rambanks(self.external_ram_count)
             if self.rambank_enabled:
                 self.rambanks[self.rambank_selected][address - 0xA000] = value
         else:
-            logger.debug("Unexpected write to 0x%0.4x, value: 0x%0.2x" % (address, value))
+            logger.debug(b"Unexpected write to 0x%0.4x, value: 0x%0.2x", address, value)
