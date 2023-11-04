@@ -5,7 +5,6 @@
 
 from pyboy import logging
 from array import array
-from copy import deepcopy
 from ctypes import c_void_p
 from random import getrandbits
 
@@ -61,10 +60,10 @@ class LCD:
 
         if self.cgb:
             if cartridge_cgb:
-                logger.debug("Starting CGB renderer")
+                logger.debug(b"Starting CGB renderer")
                 self.renderer = CGBRenderer()
             else:
-                logger.debug("Starting CGB renderer in DMG-mode")
+                logger.debug(b"Starting CGB renderer in DMG-mode")
                 # Running DMG ROM on CGB hardware use the default palettes
                 bg_pal, obj0_pal, obj1_pal = cgb_color_palette
                 self.BGP.palette_mem_rgb = [(c << 8) for c in bg_pal]
@@ -72,7 +71,7 @@ class LCD:
                 self.OBP1.palette_mem_rgb = [(c << 8) for c in obj1_pal]
                 self.renderer = Renderer(False)
         else:
-            logger.debug("Starting DMG renderer")
+            logger.debug(b"Starting DMG renderer")
             self.BGP.palette_mem_rgb = [(c << 8) for c in color_palette]
             self.OBP0.palette_mem_rgb = [(c << 8) for c in color_palette]
             self.OBP1.palette_mem_rgb = [(c << 8) for c in color_palette]
@@ -261,7 +260,7 @@ class LCD:
         if state_version >= 8:
             _cgb = f.read()
             if self.cgb != _cgb:
-                logger.critical(f"Loading state which is not CGB, but PyBoy is loaded in CGB mode!")
+                logger.critical(b"Loading state which is not CGB, but PyBoy is loaded in CGB mode!")
                 return
             self.cgb = _cgb
             self.double_speed = f.read()
@@ -995,7 +994,9 @@ class PaletteColorRegister:
     def getcolor(self, paletteindex, colorindex):
         #each palette = 8 bytes or 4 colors of 2 bytes
         assert paletteindex <= 7 or colorindex <= 3, logger.error(
-            f"Palette Mem Index Error, tried: Palette {paletteindex} color {colorindex}"
+            b"Palette Mem Index Error, tried: Palette %d color %d", 
+            paletteindex, 
+            colorindex
         )
 
         return self.palette_mem_rgb[paletteindex*4 + colorindex]

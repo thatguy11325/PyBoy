@@ -10,7 +10,10 @@ from libc.stdint cimport int16_t, uint8_t, uint16_t, uint32_t, uint64_t
 
 cimport pyboy.utils
 from pyboy cimport utils
+from pyboy.logging cimport Logger, getLogger
 from pyboy.utils cimport IntIOInterface
+
+cdef Logger logger
 
 
 cdef uint8_t INTR_VBLANK, INTR_LCDC, INTR_TIMER, INTR_SERIAL, INTR_HIGHTOLOW
