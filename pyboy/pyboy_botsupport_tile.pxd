@@ -7,7 +7,7 @@ import cython
 from libc.stdint cimport uint8_t, uint16_t, uint32_t
 
 from pyboy.pyboy_core_mb cimport Motherboard
-from pyboy cimport pyboy_utils
+from pyboy cimport pyboy_utils as utils
 
 cdef uint16_t VRAM_OFFSET, LOW_TILEDATA
 

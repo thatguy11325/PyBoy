@@ -32,7 +32,7 @@ class BootROM:
 
         if bootrom_file is None:
             # Default to PyBoy boot ROM
-            rom = "/bootrom_cgb.bin" if cgb else "/bootrom_dmg.bin"
+            rom = "/pyboy_core_bootrom_cgb.bin" if cgb else "/pyboy_core_bootrom_dmg.bin"
             bootrom_file = os.path.dirname(os.path.realpath(__file__)) + rom
 
         with open(bootrom_file, "rb") as f:

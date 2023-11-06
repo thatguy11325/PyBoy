@@ -16,7 +16,8 @@ from unittest import mock
 import numpy as np
 import pytest
 
-from pyboy import PyBoy, WindowEvent, utils
+from pyboy import PyBoy, WindowEvent
+from pyboy import pyboy_utils as utils
 
 event_filter = [
     WindowEvent.PRESS_SPEED_UP,

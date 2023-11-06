@@ -8,7 +8,7 @@ import cython
 from cpython.array cimport array
 from libc.stdint cimport int16_t, uint8_t, uint16_t, uint32_t, uint64_t
 
-cimport pyboy.pyboy_utils
+cimport pyboy.pyboy_utils as utils
 from pyboy.pyboy_utils cimport IntIOInterface
 
 
