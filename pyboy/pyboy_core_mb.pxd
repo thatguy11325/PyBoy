@@ -6,15 +6,15 @@
 from libc.stdint cimport uint8_t, uint16_t, uint32_t, uint64_t, int64_t
 
 import cython
-from pyboy cimport pyboy_core_cpu as cpu
-from pyboy cimport pyboy_core_timer as timer
-from pyboy cimport pyboy_core_cartridge_base_mbc as base_mbc
+cimport pyboy.pyboy_core_cpu as cpu
+cimport pyboy.pyboy_core_timer as timer
+cimport pyboy.pyboy_core_cartridge_base_mbc as base_mbc
 from pyboy.pyboy_utils cimport IntIOInterface
-from pyboy cimport pyboy_core_bootrom as bootrom
-from pyboy cimport pyboy_core_ram as ram
-from pyboy cimport pyboy_core_lcd as lcd
-from pyboy cimport pyboy_core_interaction as interaction
-from pyboy cimport pyboy_core_sound as sound
+cimport pyboy.pyboy_core_bootrom as bootrom
+cimport pyboy.pyboy_core_ram as ram
+cimport pyboy.pyboy_core_lcd as lcd
+cimport pyboy.pyboy_core_interaction as interaction
+cimport pyboy.pyboy_core_sound as sound
 from pyboy.pyboy_utils cimport WindowEvent
 
 

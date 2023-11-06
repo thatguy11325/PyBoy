@@ -28,7 +28,7 @@ class build_ext(_build_ext):
             8) <= sys.version_info[:2] and sys.platform == "darwin" and multiprocessing.get_start_method() == "spawn":
             multiprocessing.set_start_method("fork", force=True)
 
-        cflags = ["-O3", "-DCYTHON_PEP489_MULTI_PHASE_INIT=0", "-flto"]
+        cflags = ["-O3", "-DCYTHON_PEP489_MULTI_PHASE_INIT=0", "-flto=auto"]
         # NOTE: For performance. Check if other platforms need an equivalent change.
         if sys.platform == "darwin":
             cflags.append("-DCYTHON_INLINE=inline __attribute__ ((__unused__)) __attribute__((always_inline))")
@@ -50,6 +50,7 @@ class build_ext(_build_ext):
                 name="pyboy.bootstrap",
                 sources=list(py_pxd_files),
                 extra_compile_args=cflags,
+                extra_link_args=["-flto=auto", "-O3"],
                 include_dirs=[np.get_include()]
             ),
             nthreads=thread_count,

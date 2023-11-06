@@ -32,8 +32,5 @@ __pdoc__ = {
 # from . import pyboy_core_mb
 # from .pyboy_core_cartridge_cartridge import load_cartridge
 
-import cython
-print("cython:", cython.compiled)
-
 from . import bootstrap
 bootstrap.bootstrap_cython_submodules()

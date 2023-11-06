@@ -3,7 +3,7 @@
 # DO NOT MODIFY THIS FILE.
 # CHANGES TO THE CODE SHOULD BE MADE IN 'opcodes_gen.py'.
 
-from pyboy cimport pyboy_core_cpu as cpu
+cimport pyboy.pyboy_core_cpu as cpu
 cimport cython
 from libc.stdint cimport uint8_t, uint16_t, uint32_t
 

@@ -28,7 +28,7 @@ FLAGC, FLAGH, FLAGN, FLAGZ = range(4, 8)
 """
 
 cimports = """
-from pyboy cimport pyboy_core_cpu
+cimport pyboy.pyboy_core_cpu
 cimport cython
 from libc.stdint cimport uint8_t, uint16_t, uint32_t
 

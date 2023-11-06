@@ -3,7 +3,7 @@
 # GitHub: https://github.com/Baekalfen/PyBoy
 #
 cimport cython
-from pyboy cimport pyboy_utils
+cimport pyboy.pyboy_utils as pyboy_utils
 from pyboy.pyboy_core_mb cimport Motherboard
 
 

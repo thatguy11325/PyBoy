@@ -4,7 +4,7 @@
 #
 
 from pyboy.pyboy_plugins_base_plugin cimport PyBoyWindowPlugin
-from pyboy cimport pyboy_utils
+cimport pyboy.pyboy_utils as pyboy_utils
 
 import cython
 cimport cython

@@ -28,7 +28,7 @@ codecov: clean
 
 build:
 	@echo "Building..."
-	CFLAGS=$(CFLAGS) ${PY} setup.py build_ext -j $(shell getconf _NPROCESSORS_ONLN) --inplace
+	CC=gcc-13 CFLAGS=$(CFLAGS) ${PY} setup.py build_ext -j $(shell getconf _NPROCESSORS_ONLN) --inplace
 
 clean:
 	@echo "Cleaning..."

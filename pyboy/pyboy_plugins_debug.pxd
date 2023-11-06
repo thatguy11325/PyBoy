@@ -6,7 +6,7 @@
 cimport cython
 from cpython.array cimport array
 
-from pyboy cimport pyboy_plugins_window_sdl2
+cimport pyboy.pyboy_plugins_window_sdl2 as pyboy_plugins_window_sdl2
 from pyboy.pyboy_core_mb cimport Motherboard
 from pyboy.pyboy_botsupport_sprite cimport Sprite
 from pyboy.pyboy_botsupport_tilemap cimport TileMap

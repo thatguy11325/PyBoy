@@ -4,8 +4,8 @@
 #
 
 
-from pyboy cimport pyboy_core_mb
-from pyboy cimport pyboy_core_opcodes as opcodes
+cimport pyboy.pyboy_core_mb as pyboy_core_mb
+cimport pyboy.pyboy_core_opcodes as opcodes
 
 from libc.stdint cimport uint8_t, uint16_t, uint32_t, uint64_t
 from libc.stdint cimport int16_t

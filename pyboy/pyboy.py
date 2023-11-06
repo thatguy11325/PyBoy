@@ -6,6 +6,9 @@
 The core module of the emulator
 """
 
+import cython
+print("cython.compiled: ", cython.compiled)
+
 import logging
 import os
 import time
