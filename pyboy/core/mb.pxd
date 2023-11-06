@@ -6,6 +6,7 @@
 from libc.stdint cimport uint8_t, uint16_t, uint32_t, uint64_t, int64_t
 
 import cython
+from cpython cimport array
 cimport pyboy.core.cpu
 cimport pyboy.core.timer
 cimport pyboy.core.cartridge.base_mbc
@@ -59,6 +60,8 @@ cdef class Motherboard:
     cdef bint breakpoint_reached(self) noexcept
 
     cdef uint8_t getitem(self, uint16_t) noexcept
+    @cython.locals(items=array.array, n=cython.int)
+    cdef array.array getitems(self, uint16_t, uint32_t) noexcept
     cdef void setitem(self, uint16_t, uint8_t) noexcept
 
     @cython.locals(offset=cython.int, dst=cython.int, n=cython.int)

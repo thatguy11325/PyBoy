@@ -3,6 +3,7 @@
 # GitHub: https://github.com/Baekalfen/PyBoy
 #
 
+from array import array
 import logging
 
 from pyboy.core.opcodes import CPU_COMMANDS
@@ -358,6 +359,12 @@ class Motherboard:
             return self.cpu.interrupts_enabled_register
         # else:
         #     raise IndexError("Memory access violation. Tried to read: %s" % hex(i))
+
+    def getitems(self, i, length):
+        items = array("B", [0] * length)
+        for n in range(length):
+            items[n] = self.getitem(i + n)
+        return items
 
     def setitem(self, i, value):
         # assert 0 <= value < 0x100, "Memory write error! Can't write %s to %s" % (hex(value), hex(i))

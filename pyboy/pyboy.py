@@ -323,6 +323,20 @@ class PyBoy:
         """
         return self.mb.getitem(addr)
 
+    def get_memory_values(self, addr, length):
+        """
+        Reads given memory addresses of the Game Boy's current memory state. This will not directly give you access to
+        all switchable memory banks. Open an issue on GitHub if that is needed, or use `PyBoy.set_memory_value` to send
+        MBC commands to the virtual cartridge.
+
+        Returns
+        -------
+        array:
+            An array filled with the values of the memory addresses in [addr, addr+length)
+        """
+        # We do this so the loop can be optimized in mb
+        return self.mb.getitems(addr, length)
+
     def set_memory_value(self, addr, value):
         """
         Write one byte to a given memory address of the Game Boy's current memory state.
