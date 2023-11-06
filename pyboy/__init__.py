@@ -24,10 +24,16 @@ __pdoc__ = {
     "window_sdl2": False,
     # docs exclude end
 }
-__all__ = ["PyBoy", "WindowEvent"]
+# __all__ = ["PyBoy", "WindowEvent"]
 
-from .pyboy import PyBoy
-from .pyboy_utils import WindowEvent
-from .pyboy_botsupport_manager import BotSupportManager
-from . import pyboy_core_mb
-from .pyboy_core_cartridge_cartridge import load_cartridge
+# from .pyboy import PyBoy
+# from .pyboy_utils import WindowEvent
+# from .pyboy_botsupport_manager import BotSupportManager
+# from . import pyboy_core_mb
+# from .pyboy_core_cartridge_cartridge import load_cartridge
+
+import cython
+print("cython:", cython.compiled)
+
+from . import bootstrap
+bootstrap.bootstrap_cython_submodules()

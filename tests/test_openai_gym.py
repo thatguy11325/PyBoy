@@ -9,7 +9,7 @@ import sys
 
 import numpy as np
 import pytest
-from pyboy import PyBoy, WindowEvent
+from pyboy.pyboy import PyBoy, WindowEvent
 from pyboy.pyboy_botsupport_constants import COLS, ROWS
 
 py_version = platform.python_version()[:3]

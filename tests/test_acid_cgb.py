@@ -8,7 +8,7 @@ from pathlib import Path
 
 import PIL
 
-from pyboy import PyBoy
+from pyboy.pyboy import PyBoy
 
 OVERWRITE_PNGS = False
 

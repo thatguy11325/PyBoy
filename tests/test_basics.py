@@ -14,7 +14,7 @@ from pathlib import Path
 import PIL
 import pytest
 
-from pyboy import PyBoy, WindowEvent
+from pyboy.pyboy import PyBoy, WindowEvent
 from pyboy import __main__ as main
 from pyboy.pyboy_botsupport_tile import Tile
 

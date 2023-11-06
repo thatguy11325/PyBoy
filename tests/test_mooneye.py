@@ -12,7 +12,7 @@ from zipfile import ZipFile
 import PIL
 import pytest
 
-from pyboy import PyBoy
+from pyboy.pyboy import PyBoy
 
 if platform.python_implementation() == "PyPy":
     timeout = 15

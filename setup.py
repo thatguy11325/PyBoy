@@ -28,12 +28,13 @@ class build_ext(_build_ext):
             8) <= sys.version_info[:2] and sys.platform == "darwin" and multiprocessing.get_start_method() == "spawn":
             multiprocessing.set_start_method("fork", force=True)
 
-        cflags = ["-O3"]
+        cflags = ["-O3", "-DCYTHON_PEP489_MULTI_PHASE_INIT=0", "-flto"]
         # NOTE: For performance. Check if other platforms need an equivalent change.
         if sys.platform == "darwin":
             cflags.append("-DCYTHON_INLINE=inline __attribute__ ((__unused__)) __attribute__((always_inline))")
 
         py_pxd_files = prep_pxd_py_files()
+        """
         cythonize_files = map(
             lambda src: Extension(
                 src.split(".")[0].replace(os.sep, "."),
@@ -42,8 +43,15 @@ class build_ext(_build_ext):
                 include_dirs=[np.get_include()],
             ), list(py_pxd_files)
         )
+        """
+        
         self.distribution.ext_modules = cythonize(
-            [*cythonize_files],
+            Extension(
+                name="pyboy.bootstrap",
+                sources=list(py_pxd_files),
+                extra_compile_args=cflags,
+                include_dirs=[np.get_include()]
+            ),
             nthreads=thread_count,
             annotate=False,
             gdb_debug=False,
@@ -64,7 +72,7 @@ class build_ext(_build_ext):
 
 
 def prep_pxd_py_files():
-    ignore_py_files = ["__main__.py", "pyboy_core_manager_gen.py", "pyboy_core_opcodes_gen.py"]
+    ignore_py_files = ["__init__.py", "__main__.py", "pyboy_core_manager_gen.py", "pyboy_core_opcodes_gen.py"]
     # Cython doesn't trigger a recompile on .py files, where only the .pxd file has changed. So we fix this here.
     # We also yield the py_files that have a .pxd file, as we feed these into the cythonize call.
     for root, dirs, files in os.walk(ROOT_DIR):

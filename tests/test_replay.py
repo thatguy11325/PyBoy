@@ -16,7 +16,8 @@ from unittest import mock
 import numpy as np
 import pytest
 
-from pyboy import PyBoy, WindowEvent
+from pyboy.pyboy import PyBoy
+from pyboy.pyboy_utils import WindowEvent
 from pyboy import pyboy_utils as utils
 
 event_filter = [

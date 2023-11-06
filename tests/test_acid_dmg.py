@@ -9,7 +9,7 @@ from pathlib import Path
 import PIL
 import pytest
 
-from pyboy import PyBoy
+from pyboy.pyboy import PyBoy
 
 OVERWRITE_PNGS = False
 

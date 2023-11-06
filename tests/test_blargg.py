@@ -13,7 +13,7 @@ from pathlib import Path
 
 import pytest
 
-from pyboy import PyBoy
+from pyboy.pyboy import PyBoy
 
 OVERWRITE_JSON = False
 

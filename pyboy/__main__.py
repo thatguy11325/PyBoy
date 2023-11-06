@@ -7,7 +7,7 @@
 import argparse
 import os
 
-from pyboy import PyBoy
+from pyboy.pyboy import PyBoy
 from pyboy.logger import log_level, logger
 from pyboy.pyboy_plugins_manager import parser_arguments
 from pyboy.pyboy import defaults

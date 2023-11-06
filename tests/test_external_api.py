@@ -11,7 +11,7 @@ import numpy as np
 import PIL
 import pytest
 from PIL import ImageChops
-from pyboy import PyBoy, WindowEvent
+from pyboy.pyboy import PyBoy, WindowEvent
 from pyboy.pyboy_botsupport_tile import Tile
 
 from .conftest import BOOTROM_FRAMES_UNTIL_LOGO
