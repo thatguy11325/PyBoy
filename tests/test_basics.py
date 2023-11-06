@@ -16,7 +16,7 @@ import pytest
 
 from pyboy import PyBoy, WindowEvent
 from pyboy import __main__ as main
-from pyboy.botsupport.tile import Tile
+from pyboy.pyboy_botsupport_tile import Tile
 
 is_pypy = platform.python_implementation() == "PyPy"
 

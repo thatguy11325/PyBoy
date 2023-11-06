@@ -5,7 +5,7 @@ import pytest
 is_pypy = platform.python_implementation() == "PyPy"
 
 if is_pypy:
-    from pyboy.plugins.rewind import DeltaFixedAllocBuffers, CompressedFixedAllocBuffers, FixedAllocBuffers, \
+    from pyboy.pyboy_plugins_rewind import DeltaFixedAllocBuffers, CompressedFixedAllocBuffers, FixedAllocBuffers, \
                                     FILL_VALUE, FIXED_BUFFER_SIZE
 
 

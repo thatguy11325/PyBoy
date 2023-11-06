@@ -5,8 +5,8 @@
 
 import numpy as np
 
-from .botsupport.constants import TILES
-from .utils import WindowEvent
+from pyboy.pyboy_botsupport_constants import TILES
+from pyboy.pyboy_utils import WindowEvent
 
 try:
     from gym import Env

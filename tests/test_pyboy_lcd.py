@@ -8,7 +8,7 @@ import platform
 
 import pytest
 
-from pyboy.core.lcd import LCD
+from pyboy.pyboy_core_lcd import LCD
 
 is_pypy = platform.python_implementation() == "PyPy"
 

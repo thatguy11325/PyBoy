@@ -7,9 +7,9 @@
 from libc cimport time
 cimport cython
 from libc.stdint cimport uint64_t
-from pyboy.core.mb cimport Motherboard
-from pyboy.utils cimport IntIOWrapper, IntIOInterface
-from pyboy.plugins.manager cimport PluginManager
+from pyboy.pyboy_core_mb cimport Motherboard
+from pyboy.pyboy_utils cimport IntIOWrapper, IntIOInterface
+from pyboy.pyboy_plugins_manager cimport PluginManager
 from libc.stdint cimport int64_t
 
 

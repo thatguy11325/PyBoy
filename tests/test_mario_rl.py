@@ -35,7 +35,7 @@ record_gif_py = """
 
 import datetime
 from pathlib import Path
-from pyboy.pyboy import *
+from pyboy.pyboy_pyboy import *
 from gym.wrappers import FrameStack, NormalizeObservation
 from AISettings.AISettingsInterface import AISettingsInterface
 from AISettings.MarioAISettings import MarioAI

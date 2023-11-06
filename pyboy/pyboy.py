@@ -12,11 +12,11 @@ import time
 
 from pyboy.openai_gym import PyBoyGymEnv
 from pyboy.openai_gym import enabled as gym_enabled
-from pyboy.plugins.manager import PluginManager
-from pyboy.utils import IntIOWrapper, WindowEvent
+from pyboy.pyboy_plugins_manager import PluginManager
+from pyboy.pyboy_utils import IntIOWrapper, WindowEvent
 
-from . import botsupport
-from .core.mb import Motherboard
+from pyboy.pyboy_botsupport_manager import BotSupportManager
+from pyboy.pyboy_core_mb import Motherboard
 
 logger = logging.getLogger(__name__)
 
@@ -261,7 +261,7 @@ class PyBoy:
         `pyboy.botsupport.BotSupportManager`:
             The manager, which gives easier access to the emulated game through the classes in `pyboy.botsupport`.
         """
-        return botsupport.BotSupportManager(self, self.mb)
+        return BotSupportManager(self, self.mb)
 
     def openai_gym(self, observation_type="tiles", action_type="press", simultaneous_actions=False, **kwargs):
         """
