@@ -3,7 +3,7 @@
 # GitHub: https://github.com/Baekalfen/PyBoy
 #
 
-import os
+import array
 import platform
 
 import pytest
@@ -80,6 +80,14 @@ class TestLCD:
         assert lcd._STAT.update_LYC(lcd.LYC, lcd.LY) == INTR_LCDC # Trigger on seting LYC flag
         assert lcd._STAT.update_LYC(lcd.LYC, lcd.LY) == INTR_LCDC # Also trigger on second call
         assert lcd.get_stat() & 0b100 # LYC flag set
+
+    def test_update_tilecache0(self):
+        lcd = LCD(False, False, False, color_palette, cgb_color_palette)
+        lcd.VRAM0[0:32:2] = array.array("B", [1] * 16)
+        lcd.renderer._tilecache0_state[1] = 0
+        lcd.renderer.update_tilecache0(lcd, 1, 0)
+        assert lcd.renderer._tilecache0[8:16].tolist() == [[0, 0, 0, 0, 0, 0, 0, 1]] * 8
+        assert lcd.renderer._tilecache0_state[1] == 1
 
     # def test_tick(self):
     #     lcd = LCD()

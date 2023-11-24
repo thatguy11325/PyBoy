@@ -9,6 +9,8 @@ from copy import deepcopy
 from ctypes import c_void_p
 from random import getrandbits
 
+import numpy as np
+
 from pyboy import utils
 
 logger = logging.getLogger(__name__)
@@ -682,6 +684,12 @@ class Renderer:
     def update_tilecache0(self, lcd, t, bank):
         if self._tilecache0_state[t]:
             return
+        byte12 = np.frombuffer(lcd.VRAM0[t*16:(t+1)*16], dtype=np.uint8)
+        colorcode = (byte12[1::2] << 1) + byte12[::2]
+        for i, c in enumerate(reversed(colorcode)):
+            self._tilecache0[t*8+i, -1] = c
+
+        """
         # for t in self.tiles_changed0:
         for k in range(0, 16, 2): # 2 bytes for each line
             byte1 = lcd.VRAM0[t*16 + k]
@@ -692,6 +700,7 @@ class Renderer:
                 colorcode = utils.color_code(byte1, byte2, 7 - x)
                 self._tilecache0[y, x] = colorcode
 
+        """
         self._tilecache0_state[t] = 1
 
     def update_tilecache1(self, lcd, t, bank):

@@ -5,6 +5,7 @@
 
 import cython
 
+cimport numpy as cnp
 from cpython.array cimport array
 from libc.stdint cimport int16_t, uint8_t, uint16_t, uint32_t, uint64_t
 
@@ -12,6 +13,8 @@ cimport pyboy.utils
 from pyboy cimport utils
 from pyboy.utils cimport IntIOInterface
 
+
+cnp.import_array()
 
 cdef uint8_t INTR_VBLANK, INTR_LCDC, INTR_TIMER, INTR_SERIAL, INTR_HIGHTOLOW
 cdef uint16_t LCDC, STAT, SCY, SCX, LY, LYC, DMA, BGP, OBP0, OBP1, WY, WX
@@ -186,13 +189,9 @@ cdef class Renderer:
     )
     cdef void update_tilecache0(self, LCD, int, int) noexcept
     @cython.locals(
-        x=int,
-        t=int,
-        k=int,
-        y=int,
-        byte1=uint8_t,
-        byte2=uint8_t,
-        colorcode=uint32_t,
+        byte12=cnp.ndarray,
+        i=int,
+        c=cnp.ndarray,
     )
     cdef void update_tilecache1(self, LCD, int, int) noexcept # CGB Only
     @cython.locals(
