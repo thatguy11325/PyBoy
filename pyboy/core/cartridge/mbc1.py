@@ -33,7 +33,8 @@ class MBC1(BaseMBC):
         elif 0xA000 <= address < 0xC000:
             if self.rambank_enabled:
                 self.rambank_selected = self.bank_select_register2 if self.memorymodel == 1 else 0
-                self.rambanks[self.rambank_selected % self.external_ram_count, address - 0xA000] = value
+                self.rambank_view = self.rambanks[self.rambank_selected % self.external_ram_count]
+                self.rambank_view[address - 0xA000] = value
         # else:
         #     logger.error("Invalid writing address: %0.4x", address)
 
@@ -43,14 +44,16 @@ class MBC1(BaseMBC):
                 self.rombank_selected = (self.bank_select_register2 << 5) % self.external_rom_count
             else:
                 self.rombank_selected = 0
-            return self.rombanks[self.rombank_selected, address]
+            self.rombank_view = self.rombanks[self.rombank_selected]
+            return self.rombank_view[address]
         elif 0x4000 <= address < 0x8000:
             self.rombank_selected = \
                     ((self.bank_select_register2 << 5) | self.bank_select_register1) % self.external_rom_count
-            return self.rombanks[self.rombank_selected, address - 0x4000]
+            self.rombank_view = self.rombanks[self.rombank_selected]
+            return self.rombank_view[address - 0x4000]
         elif 0xA000 <= address < 0xC000:
             if not self.rambank_initialized:
-                logger.error("RAM banks not initialized: %s" % hex(address))
+                logger.error("RAM banks not initialized: %s", hex(address))
 
             if not self.rambank_enabled:
                 return 0xFF
@@ -59,7 +62,8 @@ class MBC1(BaseMBC):
                 self.rambank_selected = self.bank_select_register2 % self.external_ram_count
             else:
                 self.rambank_selected = 0
-            return self.rambanks[self.rambank_selected, address - 0xA000]
+            self.rambank_view = self.rambanks[self.rambank_selected]
+            return self.rambanks_view[address - 0xA000]
         # else:
         #     logger.error("Reading address invalid: %0.4x", address)
 
@@ -79,3 +83,4 @@ class MBC1(BaseMBC):
             self.bank_select_register1 = self.rombank_selected & 0b00011111
             self.bank_select_register2 = (self.rombank_selected & 0b01100000) >> 5
             self.rambank_selected = self.bank_select_register2
+            self.rambank_view = self.rambanks[self.rambank_selected]

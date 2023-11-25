@@ -51,7 +51,15 @@ cdef class Motherboard:
 
     cdef void buttonevent(self, WindowEvent) noexcept
     cdef void stop(self, bint) noexcept
-    @cython.locals(cycles=uint16_t, escape_halt=cython.int, mode0_cycles=int64_t, sclock=int)
+    @cython.locals(
+        lcd=pyboy.core.lcd.LCD,
+        timer=pyboy.core.timer.Timer,
+        sound=pyboy.core.sound.Sound,
+        cpu=pyboy.core.cpu.CPU,
+        hdma=HDMA,
+        cycles=uint16_t, 
+        escape_halt=cython.int, 
+        mode0_cycles=int64_t)
     cdef bint tick(self) noexcept
 
     cdef void switch_speed(self) noexcept
@@ -59,7 +67,7 @@ cdef class Motherboard:
     @cython.locals(pc=cython.int, bank=cython.int)
     cdef bint breakpoint_reached(self) noexcept
 
-    cdef uint8_t getitem(self, uint16_t) noexcept
+    cdef uint8_t getitem(self, uint64_t) noexcept
     cdef void setitem(self, uint16_t, uint8_t) noexcept
 
     @cython.locals(offset=cython.int, dst=cython.int, n=cython.int)

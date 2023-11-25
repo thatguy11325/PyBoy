@@ -26,13 +26,14 @@ cdef class CPU:
 
     cdef uint8_t interrupts_flag, interrupts_enabled, interrupts_flag_register, interrupts_enabled_register
 
-    cdef inline int check_interrupts(self) noexcept
+    cdef inline bint check_interrupts(self) noexcept
     cdef void set_interruptflag(self, int) noexcept
     cdef bint handle_interrupt(self, uint8_t, uint16_t) noexcept
 
     @cython.locals(opcode=uint16_t)
     cdef inline uint8_t fetch_and_execute(self) noexcept
-    cdef int tick(self) noexcept
+    @cython.locals(old_pc=uint16_t, old_sp=int)
+    cdef uint8_t tick(self) noexcept
     cdef void save_state(self, IntIOInterface) noexcept
     cdef void load_state(self, IntIOInterface, int) noexcept
 
