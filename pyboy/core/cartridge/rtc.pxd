@@ -23,5 +23,5 @@ cdef class RTC:
     cdef void load_state(self, IntIOInterface, int) noexcept
     cdef void latch_rtc(self) noexcept
     cdef void writecommand(self, uint8_t) noexcept
-    cdef uint8_t getregister(self, uint8_t) noexcept
+    cdef uint8_t getregister(self, uint64_t) noexcept
     cdef void setregister(self, uint8_t, uint8_t) noexcept
