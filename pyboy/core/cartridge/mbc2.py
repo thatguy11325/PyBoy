@@ -20,6 +20,7 @@ class MBC2(BaseMBC):
                 if value == 0:
                     value = 1
                 self.rombank_selected = value % self.external_rom_count
+                self.rombank_view = self.rombanks[self.rombank_selected]
         elif 0xA000 <= address < 0xC000:
             if self.rambank_enabled:
                 # MBC2 includes built-in RAM of 512 x 4 bits (Only the 4 LSBs are used)
@@ -31,10 +32,10 @@ class MBC2(BaseMBC):
         if 0x0000 <= address < 0x4000:
             return self.rombanks[0, address]
         elif 0x4000 <= address < 0x8000:
-            return self.rombanks[self.rombank_selected, address - 0x4000]
+            return self.rombank_view[address - 0x4000]
         elif 0xA000 <= address < 0xC000:
             if not self.rambank_initialized:
-                logger.error("RAM banks not initialized: %s" % hex(address))
+                logger.error("RAM banks not initialized: %s", hex(address))
 
             if not self.rambank_enabled:
                 return 0xFF
